@@ -1,0 +1,20 @@
+---
+interface Props {
+  side?: 'right' | 'left';
+}
+
+const { side = 'right' } = Astro.props;
+const posClass = side === 'right' ? 'right-[-25%]' : 'left-[-25%]';
+---
+
+<svg class:list={['svg-bg absolute top-[-30%] w-[70%] h-[160%]', posClass]} viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M 600 0 Q 300 200 500 600" stroke="url(#sec-g)" stroke-width="1" fill="none"/>
+  <path d="M 550 50 Q 200 250 450 550" stroke="#6366f1" stroke-width="0.4" opacity="0.08" fill="none"/>
+  <circle cx="400" cy="300" r="180" stroke="#f59e0b" stroke-width="0.4" opacity="0.06" fill="none"/>
+  <defs>
+    <linearGradient id="sec-g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+</svg>

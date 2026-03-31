@@ -2,273 +2,270 @@
 import Layout from '../layouts/Layout.astro';
 import TerminalFrame from '../components/TerminalFrame.astro';
 import StatusBar from '../components/StatusBar.astro';
+import SvgHeroBg from '../components/SvgHeroBg.astro';
+import SvgSectionBg from '../components/SvgSectionBg.astro';
+import SvgCtaBg from '../components/SvgCtaBg.astro';
 import { useCases } from '../data/use-cases';
 import '../styles/global.css';
 ---
 
 <Layout title="Agent Vision — Your AI agent can't see. Fix that.">
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 1: HERO — Full bleed, scan starts immediately
-     ═══════════════════════════════════════════════════════════ -->
-<div class="scannable min-h-screen flex flex-col justify-center px-[clamp(24px,5vw,120px)] pb-16" data-scan-id="hero">
+<!-- ═══ SECTION 1: HERO ═══ -->
+<div class="scannable min-h-screen flex flex-col justify-center max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] pb-16" data-scan-id="hero">
   <div class="scan-line"></div>
+  <SvgHeroBg />
 
-  <h1 class="font-mono text-[clamp(32px,5vw,64px)] font-bold text-text-bright leading-[1.1] mb-6 max-w-[800px]">
-    Your AI agent can't see.<br>
-    <span class="text-dim">Fix that.</span>
-  </h1>
+  <div class="relative z-[1]">
+    <span class="inline-block font-mono text-[11px] text-amber bg-[rgba(245,158,11,0.1)] border border-[rgba(245,158,11,0.2)] rounded-[6px] px-2.5 py-0.5 mb-6">macOS native</span>
 
-  <p class="text-lg text-dim max-w-[560px] mb-10 leading-relaxed">
-    Agent Vision gives AI agents eyes and hands on your Mac. Screenshot, discover UI elements, click, type, scroll — any app, any window.
-  </p>
+    <h1 class="font-display text-[clamp(40px,6vw,72px)] font-black leading-[1.05] mb-6 max-w-[700px] bg-gradient-to-br from-text to-indigo-light bg-clip-text text-transparent">
+      Your AI agent can't see. Fix that.
+    </h1>
 
-  <div class="inline-flex items-center gap-3 bg-bg-subtle border border-border px-5 py-3 font-mono text-[15px] mb-4">
-    <span class="text-dim">$</span>
-    <span class="text-green">brew install agent-vision</span>
+    <p class="text-xl text-text-muted max-w-[520px] mb-10 leading-relaxed">
+      Agent Vision gives AI agents eyes and hands on your Mac. Screenshot, discover UI elements, click, type, scroll. Any app, any window.
+    </p>
+
+    <div class="inline-flex items-center gap-3 bg-surface border border-border rounded-lg px-6 py-3.5 font-mono text-[15px] mb-4 hover:border-amber hover:shadow-[0_0_20px_rgba(245,158,11,0.08)] transition-all duration-200">
+      <span class="text-dim">$</span>
+      <span class="text-text">brew install agent-vision</span>
+    </div>
+
+    <p class="text-[13px] text-dim mt-2">
+      Works with <span class="text-amber-light">Claude Code</span>, <span class="text-amber-light">Codex</span>, <span class="text-amber-light">Gemini CLI</span>
+    </p>
   </div>
-
-  <p class="font-mono text-xs text-dim mt-2">
-    macOS only · lightweight · works with Claude Code, Codex, Gemini CLI
-  </p>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 2: HOW IT SEES
-     ═══════════════════════════════════════════════════════════ -->
-<section class="scannable px-[clamp(24px,5vw,120px)] py-24 border-t border-border" data-scan-id="how-it-sees">
+<!-- ═══ SECTION 2: HOW IT SEES ═══ -->
+<div class="section-divider"></div>
+<section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]" data-scan-id="how-it-sees">
   <div class="scan-line"></div>
 
-  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-10">
-    <span class="text-green">//</span> How it sees
+  <div class="section-label">How it sees</div>
+  <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
+    Native macOS APIs. Not browser hacks.
   </h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-[1000px] items-start">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
     <div>
-      <p class="mb-4 max-w-[480px]">
-        <strong class="text-text-bright">Accessibility API + Vision OCR.</strong> Agent Vision uses macOS native APIs to discover every interactive element on screen. Buttons, text fields, links, labels — anything the OS knows about.
+      <p class="mb-4 text-text-muted max-w-[480px]">
+        <strong class="text-text">Accessibility API + Vision OCR.</strong> Agent Vision uses macOS native APIs to discover every interactive element on screen. Buttons, text fields, links, labels.
       </p>
-      <p class="mb-4 max-w-[480px]">
+      <p class="mb-4 text-text-muted max-w-[480px]">
         No DOM. No browser. No Puppeteer. It reads what macOS already knows about every app's UI, then maps those elements to screen coordinates your AI agent can act on.
       </p>
-      <p class="max-w-[480px]">
-        Works with <strong class="text-text-bright">any macOS application</strong>. Xcode, Figma, Mail, Terminal, your custom Electron app — if it's on screen, Agent Vision can see it.
+      <p class="text-text-muted max-w-[480px]">
+        Works with <strong class="text-text">any macOS application</strong>. Xcode, Figma, Mail, Terminal, your custom Electron app — if it's on screen, Agent Vision can see it.
       </p>
     </div>
 
     <TerminalFrame title="agent-vision elements">
       <div class="space-y-0">
-        <div class="flex gap-3 py-1.5 border-b border-border font-mono text-xs">
-          <span class="text-cyan min-w-[80px]">button</span>
-          <span class="text-green min-w-[110px]">el-btn-001</span>
-          <span class="text-text">"Submit Form"</span>
-        </div>
-        <div class="flex gap-3 py-1.5 border-b border-border font-mono text-xs">
-          <span class="text-cyan min-w-[80px]">textfield</span>
-          <span class="text-green min-w-[110px]">el-input-002</span>
-          <span class="text-text">"Enter email"</span>
-        </div>
-        <div class="flex gap-3 py-1.5 border-b border-border font-mono text-xs">
-          <span class="text-cyan min-w-[80px]">link</span>
-          <span class="text-green min-w-[110px]">el-link-003</span>
-          <span class="text-text">"Documentation"</span>
-        </div>
-        <div class="flex gap-3 py-1.5 border-b border-border font-mono text-xs">
-          <span class="text-cyan min-w-[80px]">heading</span>
-          <span class="text-green min-w-[110px]">el-heading-004</span>
-          <span class="text-text">"Account Settings"</span>
-        </div>
-        <div class="flex gap-3 py-1.5 font-mono text-xs">
-          <span class="text-cyan min-w-[80px]">image</span>
-          <span class="text-green min-w-[110px]">el-img-005</span>
-          <span class="text-text">"User avatar"</span>
-        </div>
+        {[
+          { type: 'button', id: 'el-btn-001', label: '"Submit Form"' },
+          { type: 'textfield', id: 'el-input-002', label: '"Enter email"' },
+          { type: 'link', id: 'el-link-003', label: '"Documentation"' },
+          { type: 'heading', id: 'el-heading-004', label: '"Account Settings"' },
+          { type: 'image', id: 'el-img-005', label: '"User avatar"' },
+        ].map((el, i, arr) => (
+          <div class:list={['flex gap-3 py-1.5 font-mono text-xs', i < arr.length - 1 && 'border-b border-border']}>
+            <span class="text-indigo-light min-w-[80px]">{el.type}</span>
+            <span class="text-dim min-w-[110px]">{el.id}</span>
+            <span class="text-text-muted">{el.label}</span>
+          </div>
+        ))}
       </div>
     </TerminalFrame>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 3: THE LOOP — Terminal-framed workflow
-     ═══════════════════════════════════════════════════════════ -->
-<section class="scannable px-[clamp(24px,5vw,120px)] py-24 border-t border-border" data-scan-id="the-loop">
-  <div class="scan-line"></div>
+<!-- ═══ SECTION 3: THE LOOP ═══ -->
+<div class="section-divider"></div>
+<div class="bg-surface relative overflow-hidden">
+  <SvgSectionBg />
+  <section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] relative z-[1]" data-scan-id="the-loop">
+    <div class="scan-line"></div>
 
-  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-10">
-    <span class="text-green">//</span> The loop
-  </h2>
+    <div class="section-label">The loop</div>
+    <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
+      Scan. Act. Re-scan.
+    </h2>
 
-  <TerminalFrame title="agent-vision workflow" class="max-w-[1000px]">
-    <div class="-m-6">
+    <div class="flex gap-0.5 overflow-x-auto">
       {[
-        { num: '01', name: 'start', desc: 'Select a screen region. Agent Vision locks onto it.', cmd: 'agent-vision start --region 0,0,1440,900' },
-        { num: '02', name: 'capture', desc: 'Screenshot the region. Get a PNG your agent can see.', cmd: 'agent-vision capture --session $SID' },
-        { num: '03', name: 'elements', desc: 'Discover every UI element. Buttons, links, inputs, labels.', cmd: 'agent-vision elements --session $SID' },
-        { num: '04', name: 'control', desc: 'Click, type, scroll. Act on what you found.', cmd: 'agent-vision click --element el-btn-001' },
-        { num: '05', name: 're-scan', desc: 'The screen changed. Capture again. Loop.', cmd: 'agent-vision capture --session $SID' },
-      ].map((step, i, arr) => (
-        <div class:list={['grid grid-cols-[40px_100px_1fr_1fr] font-mono text-[13px]', i < arr.length - 1 && 'border-b border-border']}>
-          <div class="p-4 text-dim text-center">{step.num}</div>
-          <div class="p-4 text-green font-medium">{step.name}</div>
-          <div class="p-4 text-dim font-sans text-sm">{step.desc}</div>
-          <div class="p-4 text-text text-xs bg-bg border-l border-border">{step.cmd}</div>
+        { num: '1', name: 'start', desc: 'Select a screen region.', cmd: 'agent-vision start --region 0,0,1440,900' },
+        { num: '2', name: 'capture', desc: 'Screenshot the region.', cmd: 'agent-vision capture --session $SID' },
+        { num: '3', name: 'elements', desc: 'Discover every UI element.', cmd: 'agent-vision elements --session $SID' },
+        { num: '4', name: 'control', desc: 'Click, type, scroll.', cmd: 'agent-vision click --element el-btn-001' },
+        { num: '5', name: 're-scan', desc: 'Screen changed. Loop.', cmd: 'agent-vision capture --session $SID' },
+      ].map(step => (
+        <div class="flex-1 min-w-[180px] bg-bg border border-border rounded-[12px] p-6 relative">
+          <span class="absolute top-3 right-4 font-display text-5xl font-black text-[rgba(99,102,241,0.1)] leading-none">{step.num}</span>
+          <h3 class="font-display text-base font-semibold text-text mb-2">{step.name}</h3>
+          <p class="text-[13px] text-text-muted mb-3">{step.desc}</p>
+          <code class="block font-mono text-[11px] text-dim bg-[rgba(255,255,255,0.03)] rounded p-2">{step.cmd}</code>
         </div>
       ))}
     </div>
-  </TerminalFrame>
-</section>
+  </section>
+</div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 4: USE CASES
-     ═══════════════════════════════════════════════════════════ -->
-<section id="use-cases" class="scannable px-[clamp(24px,5vw,120px)] py-24 border-t border-border" data-scan-id="use-cases">
+<!-- ═══ SECTION 4: USE CASES ═══ -->
+<div class="section-divider"></div>
+<section id="use-cases" class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]" data-scan-id="use-cases">
   <div class="scan-line"></div>
 
-  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-10">
-    <span class="text-green">//</span> Use cases
+  <div class="section-label">Use cases</div>
+  <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
+    What developers are building
   </h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-px max-w-[1000px] bg-border">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {useCases.map(uc => (
-      <a href={`/cases/${uc.slug}`} class="bg-bg-subtle p-8 no-underline block group hover:bg-[#161616] transition-colors">
-        <h3 class="font-mono text-base text-green mb-3 group-hover:text-cyan transition-colors">{uc.title}</h3>
-        <p class="text-sm text-dim mb-4 leading-relaxed">{uc.cardDescription}</p>
-        <code class="block font-mono text-xs text-text bg-bg p-3 border border-border">{uc.cardCmd}</code>
-        <span class="font-mono text-xs text-dim mt-4 block group-hover:text-green transition-colors">Read more &rarr;</span>
+      <a href={`/cases/${uc.slug}`} class="bg-surface border border-border rounded-[12px] p-7 no-underline block group hover:border-amber hover:shadow-[0_4px_24px_rgba(245,158,11,0.06)] hover:-translate-y-0.5 transition-all duration-200">
+        <h3 class="font-display text-lg font-semibold text-text mb-2 group-hover:text-text transition-colors">{uc.title}</h3>
+        <p class="text-sm text-text-muted mb-4 leading-relaxed">{uc.cardDescription}</p>
+        <code class="block font-mono text-xs text-dim bg-bg rounded-[6px] p-3 border border-border">{uc.cardCmd}</code>
+        <span class="text-[13px] text-amber mt-3 block group-hover:text-amber-light transition-colors">Read more &rarr;</span>
       </a>
     ))}
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 5: WHY NOT X?
-     ═══════════════════════════════════════════════════════════ -->
-<section class="scannable px-[clamp(24px,5vw,120px)] py-24 border-t border-border" data-scan-id="why-not-x">
-  <div class="scan-line"></div>
+<!-- ═══ SECTION 5: WHY NOT X? ═══ -->
+<div class="section-divider"></div>
+<div class="bg-surface relative overflow-hidden">
+  <SvgSectionBg side="left" />
+  <section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] relative z-[1]" data-scan-id="why-not-x">
+    <div class="scan-line"></div>
 
-  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-10">
-    <span class="text-green">//</span> Why not Puppeteer?
-  </h2>
+    <div class="section-label">Comparison</div>
+    <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
+      Why not Puppeteer?
+    </h2>
 
-  <TerminalFrame title="comparison" class="max-w-[800px]">
-    <div class="-m-6">
-      <table class="w-full font-mono text-xs">
-        <thead>
-          <tr class="border-b border-border">
-            <th class="text-left p-4 text-dim font-normal">Capability</th>
-            <th class="text-center p-4 text-green font-normal">Agent Vision</th>
-            <th class="text-center p-4 text-dim font-normal">Puppeteer</th>
-            <th class="text-center p-4 text-dim font-normal">AppleScript</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            { cap: 'Any macOS app', av: '✓', pp: '—', as: '~' },
-            { cap: 'Native UI element discovery', av: '✓', pp: '—', as: '~' },
-            { cap: 'Screenshot + OCR', av: '✓', pp: '✓', as: '—' },
-            { cap: 'Focus-free interaction', av: '✓', pp: '—', as: '—' },
-            { cap: 'Works without browser', av: '✓', pp: '—', as: '✓' },
-            { cap: 'Coordinate-accurate clicks', av: '✓', pp: '✓', as: '—' },
-            { cap: 'Session-based', av: '✓', pp: '✓', as: '—' },
-          ].map((row, i, arr) => (
-            <tr class:list={[i < arr.length - 1 && 'border-b border-border']}>
-              <td class="p-4 text-text">{row.cap}</td>
-              <td class="p-4 text-center text-green">{row.av}</td>
-              <td class="p-4 text-center text-dim">{row.pp}</td>
-              <td class="p-4 text-center text-dim">{row.as}</td>
+    <TerminalFrame title="comparison" class="max-w-[800px]">
+      <div class="-m-6">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-border">
+              <th class="text-left p-4 font-mono text-xs text-dim font-normal uppercase tracking-wider">Capability</th>
+              <th class="text-center p-4 font-mono text-xs text-indigo font-normal uppercase tracking-wider">Agent Vision</th>
+              <th class="text-center p-4 font-mono text-xs text-dim font-normal uppercase tracking-wider">Puppeteer</th>
+              <th class="text-center p-4 font-mono text-xs text-dim font-normal uppercase tracking-wider">AppleScript</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </TerminalFrame>
+          </thead>
+          <tbody>
+            {[
+              { cap: 'Any macOS app', av: '✓', pp: '—', as: '~' },
+              { cap: 'Native UI element discovery', av: '✓', pp: '—', as: '~' },
+              { cap: 'Screenshot + OCR', av: '✓', pp: '✓', as: '—' },
+              { cap: 'Focus-free interaction', av: '✓', pp: '—', as: '—' },
+              { cap: 'Works without browser', av: '✓', pp: '—', as: '✓' },
+              { cap: 'Coordinate-accurate clicks', av: '✓', pp: '✓', as: '—' },
+              { cap: 'Session-based', av: '✓', pp: '✓', as: '—' },
+            ].map((row, i, arr) => (
+              <tr class:list={[i < arr.length - 1 && 'border-b border-border']}>
+                <td class="p-4 text-text-muted">{row.cap}</td>
+                <td class="p-4 text-center text-indigo-light">{row.av}</td>
+                <td class="p-4 text-center text-dim">{row.pp}</td>
+                <td class="p-4 text-center text-dim">{row.as}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </TerminalFrame>
 
-  <p class="font-mono text-xs text-dim mt-6 max-w-[600px]">
-    Puppeteer and Playwright only work in browsers. AppleScript works with some native apps but can't discover elements reliably or interact with coordinates. Agent Vision does both — for every app on your Mac.
-  </p>
-</section>
+    <p class="text-sm text-text-muted mt-6 max-w-[600px]">
+      Puppeteer and Playwright only work in browsers. AppleScript works with some native apps but can't discover elements reliably or interact with coordinates. Agent Vision does both — for every app on your Mac.
+    </p>
+  </section>
+</div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 6: WORKS WITH
-     ═══════════════════════════════════════════════════════════ -->
-<section class="scannable px-[clamp(24px,5vw,120px)] py-24 border-t border-border" data-scan-id="works-with">
+<!-- ═══ SECTION 6: WORKS WITH ═══ -->
+<div class="section-divider"></div>
+<section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]" data-scan-id="works-with">
   <div class="scan-line"></div>
 
-  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-10">
-    <span class="text-green">//</span> Works with
+  <div class="section-label">Integrations</div>
+  <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
+    Works with your agent
   </h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1000px]">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <div>
-      <h3 class="font-mono text-base text-text-bright mb-4">Claude Code</h3>
+      <h3 class="font-display text-base font-semibold text-text mb-4">Claude Code</h3>
       <TerminalFrame title="~/.claude/settings.json" class="!max-w-full">
-        <pre class="font-mono text-xs text-text leading-relaxed"><span class="text-dim">&#123;</span>
-  <span class="text-cyan">"tools"</span>: [<span class="text-green">"agent-vision"</span>]
+        <pre class="font-mono text-xs text-text-muted leading-relaxed"><span class="text-dim">&#123;</span>
+  <span class="text-indigo-light">"tools"</span>: [<span class="text-text">"agent-vision"</span>]
 <span class="text-dim">&#125;</span></pre>
       </TerminalFrame>
-      <p class="text-xs text-dim mt-3">
-        Claude Code can call agent-vision directly as a shell command. Give it eyes on your simulator, IDE, or any app.
+      <p class="text-xs text-text-muted mt-3">
+        Claude Code calls agent-vision directly as a shell command. Give it eyes on your simulator, IDE, or any app.
       </p>
     </div>
 
     <div>
-      <h3 class="font-mono text-base text-text-bright mb-4">Codex</h3>
+      <h3 class="font-display text-base font-semibold text-text mb-4">Codex</h3>
       <TerminalFrame title="codex session" class="!max-w-full">
-        <pre class="font-mono text-xs text-text leading-relaxed"><span class="text-dim">$</span> <span class="text-green">codex</span>
+        <pre class="font-mono text-xs text-text-muted leading-relaxed"><span class="text-dim">$</span> <span class="text-text">codex</span>
 <span class="text-dim">&gt;</span> Use agent-vision to check
   the login form in Simulator</pre>
       </TerminalFrame>
-      <p class="text-xs text-dim mt-3">
+      <p class="text-xs text-text-muted mt-3">
         Any agent that can run shell commands can use Agent Vision. No special integration needed.
       </p>
     </div>
 
     <div>
-      <h3 class="font-mono text-base text-text-bright mb-4">Gemini CLI</h3>
+      <h3 class="font-display text-base font-semibold text-text mb-4">Gemini CLI</h3>
       <TerminalFrame title="gemini session" class="!max-w-full">
-        <pre class="font-mono text-xs text-text leading-relaxed"><span class="text-dim">$</span> <span class="text-green">gemini</span>
+        <pre class="font-mono text-xs text-text-muted leading-relaxed"><span class="text-dim">$</span> <span class="text-text">gemini</span>
 <span class="text-dim">&gt;</span> Screenshot the Figma canvas
   and list all text elements</pre>
       </TerminalFrame>
-      <p class="text-xs text-dim mt-3">
+      <p class="text-xs text-text-muted mt-3">
         Works the same way. Start a session, capture, discover, act. The interface is the CLI.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 7: INSTALL
-     ═══════════════════════════════════════════════════════════ -->
-<section class="scannable text-center py-32 px-6 border-t border-border flex flex-col items-center" data-scan-id="install">
+<!-- ═══ SECTION 7: INSTALL ═══ -->
+<div class="section-divider"></div>
+<section class="scannable text-center py-[120px] px-6 flex flex-col items-center relative overflow-hidden" data-scan-id="install">
   <div class="scan-line"></div>
+  <SvgCtaBg />
 
-  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-8">
-    Get started
-  </h2>
+  <div class="relative z-[1]">
+    <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-8 leading-[1.1]">
+      Get started
+    </h2>
 
-  <TerminalFrame title="terminal">
-    <div class="text-center py-4 px-8">
-      <span class="font-mono text-[clamp(18px,2.5vw,28px)] text-green">
-        <span class="text-dim">$ </span>brew install agent-vision
-      </span>
-    </div>
-  </TerminalFrame>
+    <TerminalFrame title="terminal">
+      <div class="text-center py-4 px-8">
+        <span class="font-mono text-[clamp(18px,2.5vw,28px)] text-text">
+          <span class="text-dim">$ </span>brew install agent-vision
+        </span>
+      </div>
+    </TerminalFrame>
 
-  <p class="font-mono text-[13px] text-dim mt-5">
-    Requires macOS 13+ · No dependencies · ~4MB
-  </p>
+    <p class="text-[13px] text-dim mt-5">
+      Requires macOS 13+ · No dependencies · ~4MB
+    </p>
+  </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════
-     SECTION 8: FOOTER
-     ═══════════════════════════════════════════════════════════ -->
-<footer class="border-t border-border px-[clamp(24px,5vw,120px)] py-8 pb-16 font-mono text-xs text-dim flex justify-between items-center">
-  <span>Agent Vision · Built for macOS · Made by <a href="https://robinvanbaalen.nl" class="text-dim no-underline border-b border-border hover:text-green hover:border-green">Robin</a></span>
+<!-- ═══ SECTION 8: FOOTER ═══ -->
+<footer class="border-t border-border max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-8 pb-16 text-[13px] text-dim flex justify-between items-center">
+  <span>Agent Vision · Built for macOS · Made by <a href="https://robinvanbaalen.nl" class="text-dim no-underline hover:text-amber transition-colors">Robin</a></span>
   <span>
-    <a href="#" class="text-dim no-underline border-b border-border hover:text-green hover:border-green">GitHub</a>
+    <a href="#" class="text-dim no-underline hover:text-amber transition-colors">GitHub</a>
     <span class="mx-1">·</span>
-    <a href="#" class="text-dim no-underline border-b border-border hover:text-green hover:border-green">Docs</a>
+    <a href="#" class="text-dim no-underline hover:text-amber transition-colors">Docs</a>
   </span>
 </footer>
 
