@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import TerminalFrame from '../../components/TerminalFrame.astro';
-import StatusBar from '../../components/StatusBar.astro';
 import SvgHeroBg from '../../components/SvgHeroBg.astro';
 import SvgCtaBg from '../../components/SvgCtaBg.astro';
 import { useCases } from '../../data/use-cases';
@@ -29,15 +28,12 @@ const { useCase } = Astro.props;
 </nav>
 
 <!-- ═══ HERO ═══ -->
-<div class="scannable max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] pt-20 pb-16 relative overflow-hidden" data-scan-id="case-hero">
-  <div class="scan-line"></div>
+<div class="max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] pt-20 pb-16 relative overflow-hidden">
   <SvgHeroBg />
-
   <div class="relative z-[1]">
     <h1 class="font-display text-[clamp(28px,4vw,52px)] font-bold text-text leading-[1.1] mb-6 max-w-[800px]">
       {useCase.headline}
     </h1>
-
     <p class="text-lg text-text-muted max-w-[640px] leading-relaxed">
       {useCase.intro}
     </p>
@@ -46,9 +42,7 @@ const { useCase } = Astro.props;
 
 <!-- ═══ BEFORE / AFTER ═══ -->
 <div class="section-divider"></div>
-<section class="scannable max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-20" data-scan-id="before-after">
-  <div class="scan-line"></div>
-
+<section class="max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-20">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-[1000px]">
     <div class="bg-surface border border-border rounded-[12px] p-8">
       <h2 class="font-mono text-[11px] text-dim mb-4 uppercase tracking-[2px]">{useCase.beforeTitle}</h2>
@@ -63,14 +57,11 @@ const { useCase } = Astro.props;
 
 <!-- ═══ CLI COMMANDS ═══ -->
 <div class="section-divider"></div>
-<section class="scannable max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-20" data-scan-id="commands">
-  <div class="scan-line"></div>
-
+<section class="max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-20">
   <div class="section-label">Commands</div>
   <h2 class="font-display text-[clamp(24px,3vw,36px)] font-bold text-text mb-10 leading-[1.1]">
     How it works
   </h2>
-
   <div class="space-y-4 max-w-[800px]">
     {useCase.commands.map((command) => (
       <div>
@@ -88,14 +79,11 @@ const { useCase } = Astro.props;
 
 <!-- ═══ SCENARIO ═══ -->
 <div class="section-divider"></div>
-<section class="scannable max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-20" data-scan-id="scenario">
-  <div class="scan-line"></div>
-
+<section class="max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-20">
   <div class="section-label">Real scenario</div>
   <h2 class="font-display text-[clamp(24px,3vw,36px)] font-bold text-text mb-10 leading-[1.1]">
     {useCase.scenario.title}
   </h2>
-
   <TerminalFrame title="workflow" class="max-w-[800px]">
     <div class="-m-6">
       {useCase.scenario.steps.map((step, i) => (
@@ -110,15 +98,12 @@ const { useCase } = Astro.props;
 
 <!-- ═══ CTA ═══ -->
 <div class="section-divider"></div>
-<section class="scannable text-center py-24 px-6 flex flex-col items-center relative overflow-hidden" data-scan-id="case-cta">
-  <div class="scan-line"></div>
+<section class="text-center py-24 px-6 flex flex-col items-center relative overflow-hidden">
   <SvgCtaBg />
-
   <div class="relative z-[1]">
     <h2 class="font-display text-[clamp(20px,3vw,32px)] font-bold text-text mb-4">
       Try it now
     </h2>
-
     <TerminalFrame title="terminal">
       <div class="text-center py-4 px-8">
         <div class="font-mono text-[clamp(14px,1.8vw,20px)] text-text space-y-1">
@@ -127,11 +112,7 @@ const { useCase } = Astro.props;
         </div>
       </div>
     </TerminalFrame>
-
-    <p class="text-[13px] text-dim mt-5">
-      Requires macOS 13+ · No dependencies · ~4MB
-    </p>
-
+    <p class="text-[13px] text-dim mt-5">Requires macOS 13+ · No dependencies · ~4MB</p>
     <a href="/" class="mt-8 text-[13px] text-amber no-underline hover:text-amber-light transition-colors">
       &larr; Back to agentvision.robinvanbaalen.nl
     </a>
@@ -147,9 +128,5 @@ const { useCase } = Astro.props;
     <a href="#" class="text-dim no-underline hover:text-amber transition-colors">Docs</a>
   </span>
 </footer>
-
-<StatusBar />
-
-<script src="../../scripts/overlay.ts"></script>
 
 </Layout>

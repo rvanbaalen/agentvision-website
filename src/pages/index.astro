@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TerminalFrame from '../components/TerminalFrame.astro';
-import StatusBar from '../components/StatusBar.astro';
 import SvgHeroBg from '../components/SvgHeroBg.astro';
 import SvgSectionBg from '../components/SvgSectionBg.astro';
 import SvgCtaBg from '../components/SvgCtaBg.astro';
@@ -40,8 +39,7 @@ import '../styles/global.css';
 
 <!-- ═══ SECTION 2: HOW IT SEES ═══ -->
 <div class="section-divider"></div>
-<section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]" data-scan-id="how-it-sees">
-  <div class="scan-line"></div>
+<section class="py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]">
 
   <div class="section-label">How it sees</div>
   <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
@@ -85,8 +83,7 @@ import '../styles/global.css';
 <div class="section-divider"></div>
 <div class="bg-surface relative overflow-hidden">
   <SvgSectionBg />
-  <section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] relative z-[1]" data-scan-id="the-loop">
-    <div class="scan-line"></div>
+  <section class="py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] relative z-[1]">
 
     <div class="section-label">The loop</div>
     <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
@@ -114,8 +111,7 @@ import '../styles/global.css';
 
 <!-- ═══ SECTION 4: USE CASES ═══ -->
 <div class="section-divider"></div>
-<section id="use-cases" class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]" data-scan-id="use-cases">
-  <div class="scan-line"></div>
+<section id="use-cases" class="py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]">
 
   <div class="section-label">Use cases</div>
   <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
@@ -138,8 +134,7 @@ import '../styles/global.css';
 <div class="section-divider"></div>
 <div class="bg-surface relative overflow-hidden">
   <SvgSectionBg side="left" />
-  <section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] relative z-[1]" data-scan-id="why-not-x">
-    <div class="scan-line"></div>
+  <section class="py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] relative z-[1]">
 
     <div class="section-label">Comparison</div>
     <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
@@ -187,8 +182,7 @@ import '../styles/global.css';
 
 <!-- ═══ SECTION 6: WORKS WITH ═══ -->
 <div class="section-divider"></div>
-<section class="scannable py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]" data-scan-id="works-with">
-  <div class="scan-line"></div>
+<section class="py-[120px] max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)]">
 
   <div class="section-label">Integrations</div>
   <h2 class="font-display text-[clamp(28px,4vw,44px)] font-bold text-text mb-12 leading-[1.1]">
@@ -236,8 +230,7 @@ import '../styles/global.css';
 
 <!-- ═══ SECTION 7: INSTALL ═══ -->
 <div class="section-divider"></div>
-<section class="scannable text-center py-[120px] px-6 flex flex-col items-center relative overflow-hidden" data-scan-id="install">
-  <div class="scan-line"></div>
+<section class="text-center py-[120px] px-6 flex flex-col items-center relative overflow-hidden">
   <SvgCtaBg />
 
   <div class="relative z-[1]">
@@ -269,8 +262,6 @@ import '../styles/global.css';
     <a href="#" class="text-dim no-underline hover:text-amber transition-colors">Docs</a>
   </span>
 </footer>
-
-<StatusBar />
 
 <script src="../scripts/overlay.ts"></script>
 
