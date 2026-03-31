@@ -121,9 +121,10 @@ const { useCase } = Astro.props;
 
     <TerminalFrame title="terminal">
       <div class="text-center py-4 px-8">
-        <span class="font-mono text-[clamp(16px,2vw,24px)] text-text">
-          <span class="text-dim">$ </span>brew install agent-vision
-        </span>
+        <div class="font-mono text-[clamp(14px,1.8vw,20px)] text-text space-y-1">
+          <div><span class="text-dim">$ </span>brew tap rvanbaalen/agent-vision</div>
+          <div><span class="text-dim">$ </span>brew install agent-vision</div>
+        </div>
       </div>
     </TerminalFrame>
 

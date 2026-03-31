@@ -27,9 +27,9 @@ import '../styles/global.css';
       Agent Vision gives AI agents eyes and hands on your Mac. Screenshot, discover UI elements, click, type, scroll. Any app, any window.
     </p>
 
-    <div class="inline-flex items-center gap-3 bg-surface border border-border rounded-lg px-6 py-3.5 font-mono text-[15px] mb-4 hover:border-amber hover:shadow-[0_0_20px_rgba(245,158,11,0.08)] transition-all duration-200">
-      <span class="text-dim">$</span>
-      <span class="text-text">brew install agent-vision</span>
+    <div class="inline-flex flex-col gap-1 bg-surface border border-border rounded-lg px-6 py-3.5 font-mono text-[15px] mb-4 hover:border-amber hover:shadow-[0_0_20px_rgba(245,158,11,0.08)] transition-all duration-200">
+      <div><span class="text-dim">$ </span><span class="text-text">brew tap rvanbaalen/agent-vision</span></div>
+      <div><span class="text-dim">$ </span><span class="text-text">brew install agent-vision</span></div>
     </div>
 
     <p class="text-[13px] text-dim mt-2">
@@ -247,9 +247,10 @@ import '../styles/global.css';
 
     <TerminalFrame title="terminal">
       <div class="text-center py-4 px-8">
-        <span class="font-mono text-[clamp(18px,2.5vw,28px)] text-text">
-          <span class="text-dim">$ </span>brew install agent-vision
-        </span>
+        <div class="font-mono text-[clamp(16px,2vw,24px)] text-text space-y-1">
+          <div><span class="text-dim">$ </span>brew tap rvanbaalen/agent-vision</div>
+          <div><span class="text-dim">$ </span>brew install agent-vision</div>
+        </div>
       </div>
     </TerminalFrame>
 
