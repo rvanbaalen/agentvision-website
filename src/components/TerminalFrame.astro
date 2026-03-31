@@ -1,0 +1,20 @@
+---
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title = 'terminal', class: className = '' } = Astro.props;
+---
+
+<div class:list={['bg-bg-frame border border-border max-w-[960px] w-full relative overflow-hidden', className]}>
+  <div class="h-9 bg-bg-subtle border-b border-border flex items-center px-3.5 gap-2 font-mono text-[11px] text-dim">
+    <span class="w-2.5 h-2.5 border border-[#ff5f57] inline-block"></span>
+    <span class="w-2.5 h-2.5 border border-[#febc2e] inline-block"></span>
+    <span class="w-2.5 h-2.5 border border-[#28c840] inline-block"></span>
+    <span class="ml-3 text-dim-light">{title}</span>
+  </div>
+  <div class="p-6">
+    <slot />
+  </div>
+</div>

@@ -1,0 +1,6 @@
+name = "agentvision-website"
+compatibility_date = "2025-03-28"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist"

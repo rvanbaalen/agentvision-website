@@ -1,0 +1,140 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TerminalFrame from '../../components/TerminalFrame.astro';
+import StatusBar from '../../components/StatusBar.astro';
+import { useCases } from '../../data/use-cases';
+import '../../styles/global.css';
+
+export function getStaticPaths() {
+  return useCases.map((uc) => ({
+    params: { slug: uc.slug },
+    props: { useCase: uc },
+  }));
+}
+
+const { useCase } = Astro.props;
+---
+
+<Layout title={`${useCase.title} — Agent Vision`} description={useCase.metaDescription} canonicalPath={`/cases/${useCase.slug}`}>
+
+<!-- ═══ HEADER NAV ═══ -->
+<nav class="px-[clamp(24px,5vw,120px)] py-4 border-b border-border font-mono text-xs text-dim flex items-center gap-2">
+  <a href="/" class="text-dim no-underline hover:text-green">agent-vision</a>
+  <span>/</span>
+  <a href="/#use-cases" class="text-dim no-underline hover:text-green">cases</a>
+  <span>/</span>
+  <span class="text-text">{useCase.slug}</span>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="scannable px-[clamp(24px,5vw,120px)] pt-20 pb-16" data-scan-id="case-hero">
+  <div class="scan-line"></div>
+
+  <h1 class="font-mono text-[clamp(28px,4vw,52px)] font-bold text-text-bright leading-[1.1] mb-6 max-w-[800px]">
+    {useCase.headline}
+  </h1>
+
+  <p class="text-lg text-dim max-w-[640px] leading-relaxed">
+    {useCase.intro}
+  </p>
+</div>
+
+<!-- ═══ BEFORE / AFTER ═══ -->
+<section class="scannable px-[clamp(24px,5vw,120px)] py-20 border-t border-border" data-scan-id="before-after">
+  <div class="scan-line"></div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-px max-w-[1000px] bg-border">
+    <div class="bg-bg p-8">
+      <h2 class="font-mono text-sm text-dim mb-4 uppercase tracking-wider">{useCase.beforeTitle}</h2>
+      <p class="text-text leading-relaxed">{useCase.beforeText}</p>
+    </div>
+    <div class="bg-bg-subtle p-8">
+      <h2 class="font-mono text-sm text-green mb-4 uppercase tracking-wider">{useCase.afterTitle}</h2>
+      <p class="text-text leading-relaxed">{useCase.afterText}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CLI COMMANDS ═══ -->
+<section class="scannable px-[clamp(24px,5vw,120px)] py-20 border-t border-border" data-scan-id="commands">
+  <div class="scan-line"></div>
+
+  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-10">
+    <span class="text-green">//</span> Commands
+  </h2>
+
+  <div class="space-y-4 max-w-[800px]">
+    {useCase.commands.map((command) => (
+      <div>
+        <p class="font-mono text-xs text-dim mb-2">{command.label}</p>
+        <TerminalFrame title="terminal" class="!max-w-full">
+          <div class="font-mono text-sm">
+            <span class="text-dim">$ </span><span class="text-green">{command.cmd}</span>
+          </div>
+          <p class="text-xs text-dim mt-3 font-sans">{command.description}</p>
+        </TerminalFrame>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ═══ SCENARIO ═══ -->
+<section class="scannable px-[clamp(24px,5vw,120px)] py-20 border-t border-border" data-scan-id="scenario">
+  <div class="scan-line"></div>
+
+  <h2 class="font-mono text-[clamp(24px,3vw,36px)] font-bold text-text-bright mb-10">
+    <span class="text-green">//</span> Real scenario
+  </h2>
+
+  <TerminalFrame title={useCase.scenario.title} class="max-w-[800px]">
+    <div class="-m-6">
+      {useCase.scenario.steps.map((step, i) => (
+        <div class:list={['grid grid-cols-[40px_1fr] font-mono text-[13px]', i < useCase.scenario.steps.length - 1 && 'border-b border-border']}>
+          <div class="p-4 text-dim text-center">{String(i + 1).padStart(2, '0')}</div>
+          <div class="p-4 text-text font-sans text-sm">{step}</div>
+        </div>
+      ))}
+    </div>
+  </TerminalFrame>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="scannable text-center py-24 px-6 border-t border-border flex flex-col items-center" data-scan-id="case-cta">
+  <div class="scan-line"></div>
+
+  <h2 class="font-mono text-[clamp(20px,3vw,32px)] font-bold text-text-bright mb-4">
+    Try it now
+  </h2>
+
+  <TerminalFrame title="terminal">
+    <div class="text-center py-4 px-8">
+      <span class="font-mono text-[clamp(16px,2vw,24px)] text-green">
+        <span class="text-dim">$ </span>brew install agent-vision
+      </span>
+    </div>
+  </TerminalFrame>
+
+  <p class="font-mono text-[13px] text-dim mt-5">
+    Requires macOS 13+ · No dependencies · ~4MB
+  </p>
+
+  <a href="/" class="mt-8 font-mono text-xs text-dim no-underline border-b border-border hover:text-green hover:border-green">
+    &larr; Back to agentvision.robinvanbaalen.nl
+  </a>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="border-t border-border px-[clamp(24px,5vw,120px)] py-8 pb-16 font-mono text-xs text-dim flex justify-between items-center">
+  <span>Agent Vision · Built for macOS · Made by <a href="https://robinvanbaalen.nl" class="text-dim no-underline border-b border-border hover:text-green hover:border-green">Robin</a></span>
+  <span>
+    <a href="#" class="text-dim no-underline border-b border-border hover:text-green hover:border-green">GitHub</a>
+    <span class="mx-1">·</span>
+    <a href="#" class="text-dim no-underline border-b border-border hover:text-green hover:border-green">Docs</a>
+  </span>
+</footer>
+
+<StatusBar />
+
+<script src="../../scripts/overlay.ts"></script>
+
+</Layout>
