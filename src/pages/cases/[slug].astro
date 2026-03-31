@@ -104,14 +104,15 @@ const { useCase } = Astro.props;
     <h2 class="font-display text-[clamp(20px,3vw,32px)] font-bold text-text mb-4">
       Try it now
     </h2>
-    <TerminalFrame title="terminal">
-      <div class="text-center py-4 px-8">
-        <div class="font-mono text-[clamp(14px,1.8vw,20px)] text-text space-y-1">
-          <div><span class="text-dim">$ </span>brew tap rvanbaalen/agent-vision</div>
-          <div><span class="text-dim">$ </span>brew install agent-vision</div>
-        </div>
+    <div class="install-block group relative inline-flex items-start gap-4 bg-surface border border-border rounded-[12px] px-6 py-4 font-mono text-[clamp(14px,1.8vw,20px)] hover:border-amber hover:shadow-[0_0_20px_rgba(245,158,11,0.08)] transition-all duration-200">
+      <div class="text-left space-y-0.5">
+        <div><span class="text-dim">$ </span><span class="text-text">brew tap rvanbaalen/agent-vision</span></div>
+        <div><span class="text-dim">$ </span><span class="text-text">brew install agent-vision</span></div>
       </div>
-    </TerminalFrame>
+      <button type="button" class="copy-btn shrink-0 mt-0.5 text-dim hover:text-amber transition-colors" aria-label="Copy install commands">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="5" y="5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5" stroke="currentColor" stroke-width="1.2"/></svg>
+      </button>
+    </div>
     <p class="text-[13px] text-dim mt-5">Requires macOS 13+ · No dependencies · ~4MB</p>
     <a href="/" class="mt-8 text-[13px] text-amber no-underline hover:text-amber-light transition-colors">
       &larr; Back to agentvision.robinvanbaalen.nl
@@ -128,5 +129,18 @@ const { useCase } = Astro.props;
     <a href="#" class="text-dim no-underline hover:text-amber transition-colors">Docs</a>
   </span>
 </footer>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    navigator.clipboard.writeText('brew tap rvanbaalen/agent-vision\nbrew install agent-vision');
+    const svg = btn.querySelector('svg');
+    if (!svg) return;
+    const orig = svg.outerHTML;
+    svg.outerHTML = '<svg width="' + svg.getAttribute('width') + '" height="' + svg.getAttribute('height') + '" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3 3 7-7" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    setTimeout(() => { btn.querySelector('svg')!.outerHTML = orig; }, 1500);
+  });
+});
+</script>
 
 </Layout>
