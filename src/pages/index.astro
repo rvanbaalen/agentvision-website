@@ -249,13 +249,16 @@ import '../styles/global.css';
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div>
         <h3 class="font-display text-base font-semibold text-text mb-4">Claude Code</h3>
-        <TerminalFrame title="~/.claude/settings.json" class="!max-w-full">
-          <pre class="font-mono text-xs text-text-muted leading-relaxed"><span class="text-dim">&#123;</span>
-  <span class="text-indigo-light">"tools"</span>: [<span class="text-text">"agent-vision"</span>]
-<span class="text-dim">&#125;</span></pre>
+        <TerminalFrame title="terminal" class="!max-w-full">
+          <div class="font-mono text-[13px] space-y-0.5">
+            <div class="text-dim text-[11px] mb-1"># add the skill marketplace</div>
+            <div><span class="text-dim">$ </span><span class="text-text">claude plugin marketplace add rvanbaalen/skills</span></div>
+            <div class="text-dim text-[11px] mt-2 mb-1"># install the skill</div>
+            <div><span class="text-dim">$ </span><span class="text-text">claude plugin install use-agentvision</span></div>
+          </div>
         </TerminalFrame>
         <p class="text-xs text-text-muted mt-3">
-          Claude Code calls agent-vision directly as a shell command. Give it eyes on your simulator, IDE, or any app.
+          Install the skill and Claude automatically knows every command, workflow, and best practice for agent-vision.
         </p>
       </div>
 
