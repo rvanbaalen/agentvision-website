@@ -30,29 +30,29 @@ export const useCases: UseCase[] = [
     afterText: 'Your AI agent screenshots the app, discovers every button, label, and input field through the macOS Accessibility API, then interacts with them using precise coordinates. It works the same whether the target is Safari, Xcode, Figma, or your custom SwiftUI app. One approach for everything on screen.',
     commands: [
       {
-        label: 'Start a session targeting the app window',
-        cmd: 'agent-vision start --region 0,0,1440,900',
-        description: 'Lock onto a screen region. Agent Vision tracks this region across captures.',
+        label: 'Start a session and select the app window',
+        cmd: 'agent-vision start',
+        description: 'Launches a floating toolbar. Select the app window or drag to define a region. Returns a session UUID.',
+      },
+      {
+        label: 'Wait for area selection',
+        cmd: 'agent-vision wait --session $SID',
+        description: 'Blocks until the user (or agent) selects a screen area. Ensures the session is ready.',
       },
       {
         label: 'Capture the current state',
-        cmd: 'agent-vision capture --session $SID --format png',
+        cmd: 'agent-vision capture --session $SID',
         description: 'Take a screenshot your AI agent can analyze. Returns a PNG path.',
       },
       {
         label: 'Discover all interactive elements',
         cmd: 'agent-vision elements --session $SID',
-        description: 'Returns every button, text field, link, and label with coordinates and accessibility info.',
-      },
-      {
-        label: 'Filter for specific element types',
-        cmd: 'agent-vision elements --session $SID --filter button',
-        description: 'Narrow discovery to just buttons, inputs, or any specific element type.',
+        description: 'Returns every button, text field, link, and label with numeric indices, coordinates, and accessibility info.',
       },
       {
         label: 'Click a discovered element',
-        cmd: 'agent-vision click --element el-btn-001 --session $SID',
-        description: 'Interact with an element by its discovered ID. Coordinates are mapped automatically.',
+        cmd: 'agent-vision control click --session $SID --element 0',
+        description: 'Interact with an element by its numeric index. Focus-free via Accessibility API.',
       },
       {
         label: 'Re-capture to verify the result',
@@ -63,16 +63,16 @@ export const useCases: UseCase[] = [
     scenario: {
       title: 'Example: Testing a login flow in an iOS Simulator',
       steps: [
-        'AI agent starts an Agent Vision session targeting the Simulator window',
-        'Captures a screenshot and identifies the email field, password field, and login button',
-        'Types test credentials into each field using agent-vision type',
-        'Clicks the login button using agent-vision click',
+        'AI agent starts an Agent Vision session and selects the Simulator window',
+        'Captures a screenshot and discovers the email field, password field, and login button with numeric indices',
+        'Types test credentials into each field using agent-vision control type',
+        'Clicks the login button using agent-vision control click',
         'Re-captures and verifies the dashboard screen loaded (no error banners, expected elements present)',
         'Reports pass/fail with annotated screenshots as evidence',
       ],
     },
     cardDescription: 'Let your AI agent test any native app. It finds buttons, fills forms, verifies states, and reports bugs — across apps that browser-based tools can\'t touch.',
-    cardCmd: 'agent-vision elements --session $SID --filter button',
+    cardCmd: 'agent-vision elements --session $SID',
   },
   {
     slug: 'form-automation',
@@ -87,28 +87,23 @@ export const useCases: UseCase[] = [
     commands: [
       {
         label: 'Discover all form fields',
-        cmd: 'agent-vision elements --session $SID --filter textfield',
-        description: 'Find every text input, textarea, and editable field in the current view.',
+        cmd: 'agent-vision elements --session $SID',
+        description: 'Find every text input, button, dropdown, and label in the current view with numeric indices.',
       },
       {
         label: 'Type into a specific field',
-        cmd: 'agent-vision type --element el-input-002 --text "hello@example.com"',
-        description: 'Enter text into a discovered field. Agent Vision focuses the field and types without stealing your cursor.',
-      },
-      {
-        label: 'Clear a field before typing',
-        cmd: 'agent-vision type --element el-input-002 --text "" --clear',
-        description: 'Clear existing content before entering new text.',
+        cmd: 'agent-vision control type --session $SID --element 1 --text "hello@example.com"',
+        description: 'Enter text into a discovered field by index. With --element, it replaces the field value directly without stealing focus.',
       },
       {
         label: 'Tab to the next field',
-        cmd: 'agent-vision key --key tab --session $SID',
+        cmd: 'agent-vision control key --session $SID --key tab',
         description: 'Send keyboard events to navigate between form fields.',
       },
       {
         label: 'Submit the form',
-        cmd: 'agent-vision click --element el-btn-submit --session $SID',
-        description: 'Click the submit button after filling all fields.',
+        cmd: 'agent-vision control click --session $SID --element 4',
+        description: 'Click the submit button by its element index after filling all fields.',
       },
     ],
     scenario: {
@@ -124,7 +119,7 @@ export const useCases: UseCase[] = [
       ],
     },
     cardDescription: 'Discover input fields in any application, type values, tab between them, submit. No app-specific scripting required.',
-    cardCmd: 'agent-vision type --element el-input-002 --text "hello@example.com"',
+    cardCmd: 'agent-vision control type --session $SID --element 1 --text "hello@example.com"',
   },
   {
     slug: 'visual-feedback-loops',
@@ -139,28 +134,28 @@ export const useCases: UseCase[] = [
     commands: [
       {
         label: 'Capture baseline state',
-        cmd: 'agent-vision capture --session $SID --tag before',
-        description: 'Take a screenshot before acting. The tag helps your agent track which capture is which.',
+        cmd: 'agent-vision capture --session $SID --output before.png',
+        description: 'Take a screenshot before acting. Use --output to save to a specific path for comparison.',
       },
       {
         label: 'Perform an action',
-        cmd: 'agent-vision click --element el-btn-001 --session $SID',
+        cmd: 'agent-vision control click --session $SID --element 0',
         description: 'Click, type, scroll — whatever the next step requires.',
       },
       {
         label: 'Re-capture after the action',
-        cmd: 'agent-vision capture --session $SID --tag after',
+        cmd: 'agent-vision capture --session $SID --output after.png',
         description: 'Screenshot the result. Your agent compares this with the baseline to verify the change.',
       },
       {
         label: 'Discover new elements that appeared',
         cmd: 'agent-vision elements --session $SID',
-        description: 'After a UI change, new elements may appear (modals, error messages, new screens). Discover them.',
+        description: 'After a UI change, new elements may appear (modals, error messages, new screens). Re-scan to discover them.',
       },
       {
-        label: 'Loop until the goal is reached',
-        cmd: 'agent-vision capture --session $SID --tag step-3',
-        description: 'Each iteration brings the agent closer to its goal. The visual feedback tells it when to stop.',
+        label: 'Preview before clicking',
+        cmd: 'agent-vision preview --session $SID --at 200,300',
+        description: 'Show a crosshair at a coordinate without clicking. Verify your target before acting.',
       },
     ],
     scenario: {
@@ -175,7 +170,7 @@ export const useCases: UseCase[] = [
       ],
     },
     cardDescription: 'Capture a screenshot, analyze the visual state, decide what to do next. The scan-act-rescan loop gives AI agents a real-time visual feedback loop.',
-    cardCmd: 'agent-vision capture --session $SID --format png',
+    cardCmd: 'agent-vision capture --session $SID --output step.png',
   },
   {
     slug: 'multi-app-workflows',
@@ -189,9 +184,9 @@ export const useCases: UseCase[] = [
     afterText: 'Your AI agent treats every application as a visual interface it can read and interact with. It screenshots the spreadsheet, reads the values, switches to the CRM, finds the input fields, types the data, switches to the database tool to verify. No APIs required. If a human can do it by looking at the screen and clicking, an AI agent with Agent Vision can do it too.',
     commands: [
       {
-        label: 'Start sessions for multiple app windows',
-        cmd: 'agent-vision start --region 0,0,720,900 --name spreadsheet',
-        description: 'Create named sessions for each application window.',
+        label: 'Start separate sessions for each app',
+        cmd: 'agent-vision start',
+        description: 'Launch a session and select the spreadsheet window. Repeat for each app — sessions are isolated.',
       },
       {
         label: 'Capture from one app',
@@ -200,12 +195,12 @@ export const useCases: UseCase[] = [
       },
       {
         label: 'Switch to another app and discover fields',
-        cmd: 'agent-vision elements --session $CRM_SID --filter textfield',
-        description: 'Find input fields in the target application.',
+        cmd: 'agent-vision elements --session $CRM_SID',
+        description: 'Find input fields in the target application by their numeric indices.',
       },
       {
         label: 'Type data from source into target',
-        cmd: 'agent-vision type --element el-input-001 --text "Acme Corp" --session $CRM_SID',
+        cmd: 'agent-vision control type --session $CRM_SID --element 0 --text "Acme Corp"',
         description: 'Enter the value read from the spreadsheet into the CRM field.',
       },
       {
@@ -226,7 +221,7 @@ export const useCases: UseCase[] = [
       ],
     },
     cardDescription: 'Copy data from a spreadsheet, paste into a web form, verify in a database tool. Agent Vision bridges the gaps between apps that were never designed to talk to each other.',
-    cardCmd: 'agent-vision click --element el-btn-003 --session $SID',
+    cardCmd: 'agent-vision control click --session $SID --element 3',
   },
   {
     slug: 'ai-controlling-ai',
@@ -241,8 +236,13 @@ export const useCases: UseCase[] = [
     commands: [
       {
         label: 'Start a session targeting another terminal window',
-        cmd: 'agent-vision start --region 0,0,1440,900 --name inner-claude',
-        description: 'Lock onto the terminal window where the other Claude Code instance is running.',
+        cmd: 'agent-vision start',
+        description: 'Launch the toolbar and select the terminal window where the other Claude Code instance is running.',
+      },
+      {
+        label: 'Wait for selection, then capture',
+        cmd: 'agent-vision wait --session $INNER_SID',
+        description: 'Block until the window is selected, then the session is ready for capture.',
       },
       {
         label: 'Capture the inner agent\'s current output',
@@ -250,19 +250,14 @@ export const useCases: UseCase[] = [
         description: 'Screenshot what the other agent is showing. The outer agent can now read and analyze it.',
       },
       {
-        label: 'Read the inner agent\'s terminal text',
-        cmd: 'agent-vision elements --session $INNER_SID',
-        description: 'Discover text elements, buttons, and prompts in the inner agent\'s interface.',
-      },
-      {
         label: 'Type a command into the inner agent',
-        cmd: 'agent-vision type --element el-input-001 --text "fix the header spacing" --session $INNER_SID',
-        description: 'Send instructions to the inner Claude Code instance by typing into its prompt.',
+        cmd: 'agent-vision control type --session $INNER_SID --text "fix the header spacing"',
+        description: 'Send instructions by typing into the inner Claude Code instance. Without --element, types keystroke-by-keystroke at cursor.',
       },
       {
-        label: 'Approve a prompt or suggestion',
-        cmd: 'agent-vision click --element el-btn-approve --session $INNER_SID',
-        description: 'Click approve/accept buttons on the inner agent\'s permission prompts.',
+        label: 'Press enter to submit',
+        cmd: 'agent-vision control key --session $INNER_SID --key enter',
+        description: 'Send keyboard events like enter, tab, escape, or modifier combos like cmd+s.',
       },
       {
         label: 'Re-capture to verify the result',
@@ -282,7 +277,7 @@ export const useCases: UseCase[] = [
       ],
     },
     cardDescription: 'One Claude controls another Claude through its terminal. AI agents orchestrating AI agents through visual interfaces. We built this site this way.',
-    cardCmd: 'agent-vision type --text "fix the header" --session $INNER_SID',
+    cardCmd: 'agent-vision control type --session $INNER_SID --text "fix the header"',
   },
   {
     slug: 'web-app-automation',
@@ -297,8 +292,8 @@ export const useCases: UseCase[] = [
     commands: [
       {
         label: 'Target the browser window',
-        cmd: 'agent-vision start --region 0,0,1440,900 --name browser',
-        description: 'Lock onto your browser window where the web app is open.',
+        cmd: 'agent-vision start',
+        description: 'Launch the toolbar and select your browser window where the web app is open.',
       },
       {
         label: 'Discover page elements',
@@ -307,18 +302,18 @@ export const useCases: UseCase[] = [
       },
       {
         label: 'Click a navigation element',
-        cmd: 'agent-vision click --element el-link-005 --session $SID',
+        cmd: 'agent-vision control click --session $SID --element 5',
         description: 'Navigate to a different page or section by clicking links and menu items.',
       },
       {
         label: 'Fill a form field',
-        cmd: 'agent-vision type --element el-input-003 --text "PROJ-1234: Bug fix" --session $SID',
+        cmd: 'agent-vision control type --session $SID --element 3 --text "PROJ-1234: Bug fix"',
         description: 'Type into any input field on the page. Works with search boxes, text areas, and inline editors.',
       },
       {
-        label: 'Submit or save',
-        cmd: 'agent-vision click --element el-btn-save --session $SID',
-        description: 'Click the save/submit/update button to commit the changes.',
+        label: 'Scroll down the page',
+        cmd: 'agent-vision control scroll --session $SID --delta 0,-300',
+        description: 'Scroll by pixel delta. Negative Y scrolls down, positive Y scrolls up.',
       },
     ],
     scenario: {
@@ -333,7 +328,7 @@ export const useCases: UseCase[] = [
       ],
     },
     cardDescription: 'Point Agent Vision at a browser window and control web apps that have no API. Jira, Notion, Google Forms, legacy admin panels. No API keys needed.',
-    cardCmd: 'agent-vision click --element el-link-005 --session $SID',
+    cardCmd: 'agent-vision control click --session $SID --element 5',
   },
   {
     slug: 'mobile-simulator-testing',
@@ -348,8 +343,8 @@ export const useCases: UseCase[] = [
     commands: [
       {
         label: 'Target the Simulator window',
-        cmd: 'agent-vision start --region 0,0,430,932 --name simulator',
-        description: 'Lock onto the iOS Simulator window. Size matches a standard iPhone frame.',
+        cmd: 'agent-vision start',
+        description: 'Launch the toolbar and click "Select Window", then click the iOS Simulator window.',
       },
       {
         label: 'Discover on-screen elements',
@@ -358,22 +353,22 @@ export const useCases: UseCase[] = [
       },
       {
         label: 'Tap a button',
-        cmd: 'agent-vision click --element el-btn-login --session $SID',
-        description: 'Tap is just a click. Agent Vision translates screen coordinates to the Simulator window.',
+        cmd: 'agent-vision control click --session $SID --element 2',
+        description: 'Tap is just a click. Use --element for focus-free interaction via Accessibility API.',
       },
       {
         label: 'Swipe to scroll',
-        cmd: 'agent-vision drag --from 215,700 --to 215,300 --session $SID',
+        cmd: 'agent-vision control drag --session $SID --from 215,700 --to 215,300',
         description: 'The drag command handles swipe gestures. Drag up to scroll down, drag left to go to the next page.',
       },
       {
         label: 'Type into a text field',
-        cmd: 'agent-vision type --element el-input-email --text "test@example.com" --session $SID',
-        description: 'Enter text into input fields. Works with the Simulator\'s keyboard input.',
+        cmd: 'agent-vision control type --session $SID --element 1 --text "test@example.com"',
+        description: 'Enter text into input fields. With --element, replaces field value directly.',
       },
       {
         label: 'Verify the visual state',
-        cmd: 'agent-vision capture --session $SID --tag after-login',
+        cmd: 'agent-vision capture --session $SID --output after-login.png',
         description: 'Screenshot the result and have your AI agent verify the expected screen appeared.',
       },
     ],
@@ -389,7 +384,7 @@ export const useCases: UseCase[] = [
       ],
     },
     cardDescription: 'Control the iOS Simulator without Appium or XCUITest. Tap, swipe, type, and verify — all through the macOS screen. Zero test framework setup.',
-    cardCmd: 'agent-vision drag --from 215,700 --to 215,300 --session $SID',
+    cardCmd: 'agent-vision control drag --session $SID --from 215,700 --to 215,300',
   },
   {
     slug: 'desktop-workflows',
@@ -404,8 +399,8 @@ export const useCases: UseCase[] = [
     commands: [
       {
         label: 'Start sessions for each app',
-        cmd: 'agent-vision start --region 0,0,800,600 --name mail',
-        description: 'Create a named session for Mail.app. Repeat for Calendar, Slack, Numbers.',
+        cmd: 'agent-vision start',
+        description: 'Launch a session and select the Mail.app window. Repeat for Calendar, Slack, Numbers — each gets its own session.',
       },
       {
         label: 'Read email content',
@@ -414,23 +409,23 @@ export const useCases: UseCase[] = [
       },
       {
         label: 'Create a calendar event',
-        cmd: 'agent-vision click --element el-btn-new-event --session $CAL_SID',
-        description: 'Switch to Calendar and click "New Event" to start creating an entry.',
+        cmd: 'agent-vision control click --session $CAL_SID --element 0',
+        description: 'Switch to Calendar and click "New Event" by element index to start creating an entry.',
       },
       {
         label: 'Fill in event details',
-        cmd: 'agent-vision type --element el-input-title --text "Team standup re: Q2 planning" --session $CAL_SID',
+        cmd: 'agent-vision control type --session $CAL_SID --element 2 --text "Team standup re: Q2 planning"',
         description: 'Type the event title extracted from the email.',
       },
       {
         label: 'Post to Slack',
-        cmd: 'agent-vision type --element el-input-message --text "New meeting scheduled: Q2 planning" --session $SLACK_SID',
+        cmd: 'agent-vision control type --session $SLACK_SID --element 0 --text "New meeting scheduled: Q2 planning"',
         description: 'Switch to Slack and type a summary message in the channel input.',
       },
       {
-        label: 'Log in spreadsheet',
-        cmd: 'agent-vision type --element el-cell-A1 --text "2026-03-31" --session $NUMBERS_SID',
-        description: 'Switch to Numbers and log the event date in the tracking spreadsheet.',
+        label: 'Stop a session when done',
+        cmd: 'agent-vision stop --session $MAIL_SID',
+        description: 'Clean up a session when you\'re finished with that app window.',
       },
     ],
     scenario: {
@@ -445,6 +440,6 @@ export const useCases: UseCase[] = [
       ],
     },
     cardDescription: 'Zapier for your actual desktop. Read email in Mail.app, create Calendar events, post to Slack, log in spreadsheets. No app needs integrations.',
-    cardCmd: 'agent-vision start --region 0,0,800,600 --name mail',
+    cardCmd: 'agent-vision control type --session $SID --element 2 --text "Q2 planning"',
   },
 ];

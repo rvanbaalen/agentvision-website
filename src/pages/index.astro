@@ -138,18 +138,19 @@ import '../styles/global.css';
       </p>
     </div>
 
-    <TerminalFrame title="agent-vision elements">
+    <TerminalFrame title="agent-vision elements --session $SID">
       <div class="space-y-0">
         {[
-          { type: 'button', id: 'el-btn-001', label: '"Submit Form"' },
-          { type: 'textfield', id: 'el-input-002', label: '"Enter email"' },
-          { type: 'link', id: 'el-link-003', label: '"Documentation"' },
-          { type: 'heading', id: 'el-heading-004', label: '"Account Settings"' },
-          { type: 'image', id: 'el-img-005', label: '"User avatar"' },
+          { index: '0', role: 'button', source: 'ax', label: '"Submit Form"' },
+          { index: '1', role: 'textfield', source: 'ax', label: '"Enter email"' },
+          { index: '2', role: 'link', source: 'ax', label: '"Documentation"' },
+          { index: '3', role: 'heading', source: 'ax', label: '"Account Settings"' },
+          { index: '4', role: 'statictext', source: 'ocr', label: '"User avatar"' },
         ].map((el, i, arr) => (
           <div class:list={['flex gap-3 py-1.5 font-mono text-xs', i < arr.length - 1 && 'border-b border-border']}>
-            <span class="text-indigo-light min-w-[80px]">{el.type}</span>
-            <span class="text-dim min-w-[110px]">{el.id}</span>
+            <span class="text-indigo-light min-w-[30px]">{el.index}</span>
+            <span class="text-dim min-w-[80px]">{el.role}</span>
+            <span class="text-dim min-w-[30px]">{el.source}</span>
             <span class="text-text-muted">{el.label}</span>
           </div>
         ))}
@@ -171,10 +172,10 @@ import '../styles/global.css';
 
     <div class="flex gap-0.5 overflow-x-auto">
       {[
-        { num: '1', name: 'start', desc: 'Select a screen region.', cmd: 'agent-vision start --region 0,0,1440,900' },
+        { num: '1', name: 'start', desc: 'Launch toolbar, select area.', cmd: 'agent-vision start' },
         { num: '2', name: 'capture', desc: 'Screenshot the region.', cmd: 'agent-vision capture --session $SID' },
         { num: '3', name: 'elements', desc: 'Discover every UI element.', cmd: 'agent-vision elements --session $SID' },
-        { num: '4', name: 'control', desc: 'Click, type, scroll.', cmd: 'agent-vision click --element el-btn-001' },
+        { num: '4', name: 'control', desc: 'Click, type, scroll.', cmd: 'agent-vision control click --session $SID --element 0' },
         { num: '5', name: 're-scan', desc: 'Screen changed. Loop.', cmd: 'agent-vision capture --session $SID' },
       ].map(step => (
         <div class="flex-1 min-w-[180px] bg-bg border border-border rounded-[12px] p-6 relative">
@@ -216,6 +217,7 @@ import '../styles/global.css';
             { cap: 'Focus-free interaction', av: '✓', pp: '—', as: '—' },
             { cap: 'Works without browser', av: '✓', pp: '—', as: '✓' },
             { cap: 'Coordinate-accurate clicks', av: '✓', pp: '✓', as: '—' },
+            { cap: 'Calibration & preview', av: '✓', pp: '—', as: '—' },
             { cap: 'Session-based', av: '✓', pp: '✓', as: '—' },
           ].map((row, i, arr) => (
             <tr class:list={[i < arr.length - 1 && 'border-b border-border']}>
