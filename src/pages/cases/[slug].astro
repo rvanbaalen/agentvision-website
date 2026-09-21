@@ -16,7 +16,7 @@ export function getStaticPaths() {
 const { useCase } = Astro.props;
 ---
 
-<Layout title={`${useCase.title} — Agent Vision`} description={useCase.metaDescription} canonicalPath={`/cases/${useCase.slug}`}>
+<Layout title={`${useCase.title} — Agent Vision`} description={useCase.metaDescription} canonicalPath={`/cases/${useCase.slug}/`}>
 
 <!-- ═══ HEADER NAV ═══ -->
 <nav class="max-w-[1200px] mx-auto px-[clamp(24px,5vw,120px)] py-4 border-b border-border font-mono text-xs text-dim flex items-center gap-2">

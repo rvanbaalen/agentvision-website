@@ -8,7 +8,7 @@ interface Props {
 const SITE = 'https://agentvision.robinvanbaalen.nl';
 const DEFAULT_DESCRIPTION = 'Agent Vision gives AI agents eyes and hands on your Mac. Screenshot, discover UI elements, click, type, scroll — any app, any window.';
 
-const { title, description = DEFAULT_DESCRIPTION, canonicalPath = '' } = Astro.props;
+const { title, description = DEFAULT_DESCRIPTION, canonicalPath = '/' } = Astro.props;
 const canonicalUrl = `${SITE}${canonicalPath}`;
 ---
 

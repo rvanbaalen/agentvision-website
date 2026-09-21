@@ -97,11 +97,11 @@ import '../styles/global.css';
 
   <div class="space-y-4 max-w-[800px]">
     {[
-      { prompt: 'Use agent-vision to screenshot the app in dark mode and light mode on the simulator', tag: 'Visual QA', href: '/cases/mobile-simulator-testing' },
-      { prompt: 'Use agent-vision to fill out the signup form and capture each step', tag: 'Form testing', href: '/cases/form-automation' },
-      { prompt: 'Use agent-vision to navigate to Settings > Privacy and check what\'s enabled', tag: 'App navigation', href: '/cases/qa-testing' },
-      { prompt: 'Use agent-vision to QA test the login flow across Safari, Chrome, and Firefox', tag: 'Cross-browser', href: '/cases/web-app-automation' },
-      { prompt: 'Use agent-vision to control the other Claude session and build this feature', tag: 'AI orchestration', href: '/cases/ai-controlling-ai' },
+      { prompt: 'Use agent-vision to screenshot the app in dark mode and light mode on the simulator', tag: 'Visual QA', href: '/cases/mobile-simulator-testing/' },
+      { prompt: 'Use agent-vision to fill out the signup form and capture each step', tag: 'Form testing', href: '/cases/form-automation/' },
+      { prompt: 'Use agent-vision to navigate to Settings > Privacy and check what\'s enabled', tag: 'App navigation', href: '/cases/qa-testing/' },
+      { prompt: 'Use agent-vision to QA test the login flow across Safari, Chrome, and Firefox', tag: 'Cross-browser', href: '/cases/web-app-automation/' },
+      { prompt: 'Use agent-vision to control the other Claude session and build this feature', tag: 'AI orchestration', href: '/cases/ai-controlling-ai/' },
     ].map(example => (
       <a href={example.href} class="block bg-surface border border-border rounded-[12px] px-6 py-5 group hover:border-amber hover:shadow-[0_4px_24px_rgba(245,158,11,0.06)] transition-all duration-200 no-underline">
         <div class="flex items-start justify-between gap-4">
@@ -298,7 +298,7 @@ import '../styles/global.css';
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {useCases.map(uc => (
-      <a href={`/cases/${uc.slug}`} class="bg-surface border border-border rounded-[12px] p-7 no-underline block group hover:border-amber hover:shadow-[0_4px_24px_rgba(245,158,11,0.06)] hover:-translate-y-0.5 transition-all duration-200">
+      <a href={`/cases/${uc.slug}/`} class="bg-surface border border-border rounded-[12px] p-7 no-underline block group hover:border-amber hover:shadow-[0_4px_24px_rgba(245,158,11,0.06)] hover:-translate-y-0.5 transition-all duration-200">
         <h3 class="font-display text-lg font-semibold text-text mb-2 group-hover:text-text transition-colors">{uc.title}</h3>
         <p class="text-sm text-text-muted mb-4 leading-relaxed">{uc.cardDescription}</p>
         <span class="text-[13px] text-amber group-hover:text-amber-light transition-colors">Read more &rarr;</span>
