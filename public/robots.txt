@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://agentvision.robinvanbaalen.nl/sitemap-index.xml
