@@ -10,6 +10,7 @@ const DEFAULT_DESCRIPTION = 'Agent Vision gives AI agents eyes and hands on your
 
 const { title, description = DEFAULT_DESCRIPTION, canonicalPath = '/' } = Astro.props;
 const canonicalUrl = `${SITE}${canonicalPath}`;
+const ogImage = `${SITE}/og/default.png`;
 ---
 
 <!DOCTYPE html>
@@ -27,11 +28,16 @@ const canonicalUrl = `${SITE}${canonicalPath}`;
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
   <meta property="og:site_name" content="Agent Vision">
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Agent Vision: your AI agent can't see. Fix that.">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
   <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImage}>
 
   <!-- Fonts: Satoshi from Fontshare, DM Sans + Geist Mono from Google Fonts -->
   <link rel="preconnect" href="https://api.fontshare.com">
